@@ -7,6 +7,7 @@
     speedX: number;
     speedY: number;
     isMoving: boolean;
+    draw: (context: CanvasRenderingContext2D) => void
 }
 
 export class Ball implements BallModel {
@@ -19,7 +20,7 @@ export class Ball implements BallModel {
     public speedY: number;
     public isMoving: boolean;
 
-    constructor(id: number, x: number, y: number, radius: number, color: string) {
+    constructor(id: number, x: number, y: number, radius: number, color: string, isMoving: boolean = false) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -28,6 +29,14 @@ export class Ball implements BallModel {
         this.speedX = 0;
         this.speedY = 0;
         this.isMoving = false;
+    }
+    
+    public draw(context: CanvasRenderingContext2D): void {
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        context.closePath();
+        context.fill();
     }
 
     public move(): void {
